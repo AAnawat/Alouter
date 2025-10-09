@@ -1,0 +1,39 @@
+name: website test
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - website-dev
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5.0.0
+        
+      - name: Setup Python
+        uses: actions/setup-python@v6.0.0
+        with:
+          python-version: "3.11.5"
+
+      - name: install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install flake8 black
+
+      - name: Run flake8 (Line)
+        run: flake8 .
+
+      - name: Check code format with black
+        run: black --check .
+
+      - name: test application
+        run: pytest
+      

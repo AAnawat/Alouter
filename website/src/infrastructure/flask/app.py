@@ -1,14 +1,19 @@
 from flask import Flask, render_template
 
 
-app = Flask(__name__, static_url_path="/static", static_folder="static", template_folder="templates")
+app = Flask(
+    __name__,
+    static_url_path="/static",
+    static_folder="static",
+    template_folder="templates",
+)
 
-@app.route('/health-check')
+
+@app.route("/health-check")
 def healthCheckAPI():
-    return {
-        "status": "Running"
-    }
+    return {"status": "Running"}
 
-@app.route('/')
+
+@app.route("/")
 def homePage():
     return render_template("home.html")

@@ -3,6 +3,7 @@ import threading
 import time
 from src.infrastructure.flask.app import app
 
+
 def start_app():
     app.run(port=8080)
 
@@ -16,7 +17,7 @@ def test_getURL():
 
     responses = [
         requests.get("http://localhost:8080/"),
-        requests.get("http://localhost:8080/health-check")
+        requests.get("http://localhost:8080/health-check"),
     ]
 
     for response in responses:

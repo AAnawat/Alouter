@@ -1,0 +1,34 @@
+services:
+  website:
+    build:
+      context: ./website
+      dockerfile: dockerfile
+    container_name: alouter-website
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./website/.env
+    networks:
+      - alouter-network
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: alouter-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - alouter-network
+
+
+volumes:
+  mongo-data:
+
+networks:
+  alouter-network:

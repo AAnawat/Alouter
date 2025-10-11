@@ -4,9 +4,12 @@ class GetAllRouter:
 
     def __call__(self, *args, **kwds):
         getResult = self.connector.find()
-        output = map(lambda router: {
-            "id": str(router["_id"]),
-            "name": router["name"],
-            "host": router["host"],
-        }, getResult)
+        output = map(
+            lambda router: {
+                "id": str(router["_id"]),
+                "name": router["name"],
+                "host": router["host"],
+            },
+            getResult,
+        )
         return output

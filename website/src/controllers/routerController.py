@@ -1,6 +1,7 @@
 from ..use_cases.addRouter import AddRouter
 from ..use_cases.getAllRouter import GetAllRouter
 
+
 class RouterController:
     def __init__(self, dbConnector):
         self.addRouterUseCase = AddRouter(dbConnector["credential"])

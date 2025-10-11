@@ -21,18 +21,22 @@ def homePage():
     return render_template("home.html")
 
 
+<<<<<<< HEAD
 @app.route('/add-router', methods=['POST'])
+=======
+@app.route("/add-router", methods=["POST"])
+>>>>>>> 9605181 (fix: pep-8 change)
 def addRouter():
     try:
-        name = request.form.get('name')
-        host = request.form.get('host')
-        username = request.form.get('username')
-        password = request.form.get('password')
-        
+        name = request.form.get("name")
+        host = request.form.get("host")
+        username = request.form.get("username")
+        password = request.form.get("password")
+
         if (not name) or (not host) or (not username) or (not password):
             raise ValueError("All fields are required.")
 
         routerController.addRouter(name, host, username, password)
-        return redirect('/')
+        return redirect("/")
     except Exception as e:
         return {"status": "error", "message": str(e)}, 500

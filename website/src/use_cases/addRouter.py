@@ -3,11 +3,8 @@ class AddRouter:
         self.connection = dbConnector
 
     def __call__(self, name, host, username, password):
-        insertResult = self.connection.insert_one({
-            "name": name,
-            "host": host,
-            "username": username,
-            "password": password
-        })
+        insertResult = self.connection.insert_one(
+            {"name": name, "host": host, "username": username, "password": password}
+        )
 
         return insertResult

@@ -1,11 +1,12 @@
 import time
 
+
 def scheduler():
-    
+
     INTERVAL = 30
     next_run = time.monotonic()
     count = 0
-    
+
     while True:
         now = time.time()
         now_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(now))
@@ -16,6 +17,7 @@ def scheduler():
         count += 1
         next_run += INTERVAL
         time.sleep(max(0.0, next_run - time.monotonic()))
+
 
 if __name__ == "__main__":
     scheduler()

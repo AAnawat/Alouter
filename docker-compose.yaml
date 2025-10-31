@@ -28,6 +28,14 @@ services:
       - mongo-data:/data/db
     networks:
       - alouter-network
+  
+  scheduler:
+    build:
+      context: ./scheduler
+      dockerfile: dockerfile
+    container_name: alouter-scheduler
+    networks:
+      - alouter-network
 
 
 volumes:

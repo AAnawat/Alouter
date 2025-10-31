@@ -21,11 +21,7 @@ def homePage():
     return render_template("home.html")
 
 
-<<<<<<< HEAD
-@app.route('/add-router', methods=['POST'])
-=======
 @app.route("/add-router", methods=["POST"])
->>>>>>> 9605181 (fix: pep-8 change)
 def addRouter():
     try:
         name = request.form.get("name")

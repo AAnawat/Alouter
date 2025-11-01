@@ -1,0 +1,9 @@
+FROM python:slim
+
+WORKDIR /worker
+
+COPY . .
+
+RUN pip install -r requirements.txt
+
+CMD ["python", "-u", "worker.py"]

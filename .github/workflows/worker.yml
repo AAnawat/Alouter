@@ -1,0 +1,46 @@
+name: worker test
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - worker-dev
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: worker
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5.0.0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6.0.0
+        with:
+          python-version: "3.11.5"
+
+      - name: install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install flake8 black
+
+      - name: Run flake8 (Line)
+        run: flake8 .
+
+      - name: Check code format with black
+        run: black --check .
+
+      - name: Login Docker
+        uses: docker/login-action@v3.6.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+      - name: Build & Push Docker
+        run: |
+          docker build -t aunanawat/alouter-worker .
+          docker push aunanawat/alouter-worker

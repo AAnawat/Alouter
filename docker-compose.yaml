@@ -6,11 +6,13 @@ services:
     container_name: alouter-website
     ports:
       - "8080:8080"
-    env_file:
-      - ./website/.env
     environment:
       - MONGO_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
       - MONGO_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+    volumes:
+      - ./nfs:/app/assets/router_logs
     networks:
       - alouter-network
     depends_on:
@@ -37,6 +39,15 @@ services:
     networks:
       - alouter-network
 
+  worker:
+    build:
+      context: ./worker
+      dockerfile: dockerfile
+    container_name: alouter-worker
+    volumes:
+      - ./nfs:/worker/router_logs
+    networks:
+      - alouter-network
 
 volumes:
   mongo-data:

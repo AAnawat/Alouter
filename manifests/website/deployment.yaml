@@ -22,7 +22,11 @@ spec:
         volumeMounts:
         - name: router-logs
           mountPath: /app/assets/router_logs
+        envFrom:
+            - secretRef:
+                name: mongodb-credential
       volumes:
       - name: router-logs
         persistentVolumeClaim:
           claimName: nfs-pvc
+      restartPolicy: Always

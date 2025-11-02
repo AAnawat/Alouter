@@ -2,6 +2,7 @@ import pika
 import time
 
 from config.rabbitConfig import config as rabbit_config
+
 print(rabbit_config)
 
 for _ in range(10):
@@ -11,8 +12,8 @@ for _ in range(10):
                 host=rabbit_config["host"],
                 credentials=pika.PlainCredentials(
                     username=rabbit_config["username"],
-                    password=rabbit_config["password"]
-                )
+                    password=rabbit_config["password"],
+                ),
             )
         )
         break

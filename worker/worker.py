@@ -26,7 +26,11 @@ def handle_interface(ch, method, properties, body):
 
         current = datetime.datetime.now(datetime.timezone.utc).isoformat()
         interface_collection.insert_one(
-            {"router_ip": message["host"], "timestamp": current, "interfaces": interfaces}
+            {
+                "router_ip": message["host"],
+                "timestamp": current,
+                "interfaces": interfaces,
+            }
         )
     except Exception as e:
         print(f" [!] Error processing interface message: {e}")
@@ -45,7 +49,11 @@ def handle_performance(ch, method, properties, body):
 
         current = datetime.datetime.now(datetime.timezone.utc).isoformat()
         performance_collection.insert_one(
-            {"router_ip": message["host"], "timestamp": current, "performance": performance}
+            {
+                "router_ip": message["host"],
+                "timestamp": current,
+                "performance": performance,
+            }
         )
     except Exception as e:
         print(f" [!] Error processing performance message: {e}")
@@ -85,7 +93,7 @@ def worker():
         except pika.exceptions.AMQPConnectionError:
             print("RabbitMQ not ready, retrying...")
             time.sleep(3)
-    
+
     try:
         channel = connection.channel()
 

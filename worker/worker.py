@@ -1,5 +1,6 @@
 import pika
 import datetime
+import time
 
 from config.rabbitConfig import config as rabbit_config
 from database import router_db
@@ -13,69 +14,87 @@ log_collection = router_db["log"]
 
 
 def handle_interface(ch, method, properties, body):
-    message = json_util.loads(body)
+    try:
+        message = json_util.loads(body)
 
-    interfaces = get_interface(
-        message["host"],
-        message["username"],
-        message["password"],
-        message["name"],
-    )
+        interfaces = get_interface(
+            message["host"],
+            message["username"],
+            message["password"],
+            message["name"],
+        )
 
-    current = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    performance_collection.insert_one(
-        {"router_ip": message["host"], "timestamp": current, "interfaces": interfaces}
-    )
+        current = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        interface_collection.insert_one(
+            {
+                "router_ip": message["host"],
+                "timestamp": current,
+                "interfaces": interfaces,
+            }
+        )
+    except Exception as e:
+        print(f" [!] Error processing interface message: {e}")
 
 
 def handle_performance(ch, method, properties, body):
-    message = json_util.loads(body)
+    try:
+        message = json_util.loads(body)
 
-    performance = get_performance(
-        message["host"],
-        message["username"],
-        message["password"],
-        message["name"],
-    )
+        performance = get_performance(
+            message["host"],
+            message["username"],
+            message["password"],
+            message["name"],
+        )
 
-    current = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    performance_collection.insert_one(
-        {"router_ip": message["host"], "timestamp": current, "performance": performance}
-    )
+        current = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        performance_collection.insert_one(
+            {
+                "router_ip": message["host"],
+                "timestamp": current,
+                "performance": performance,
+            }
+        )
+    except Exception as e:
+        print(f" [!] Error processing performance message: {e}")
 
 
 def handle_log(ch, method, properties, body):
-    message = {
-        "host": "10.2.17.21",
-        "username": "admin",
-        "password": "cisco",
-        "name": "Router1",
-    }
+    try:
+        message = json_util.loads(body)
 
-    log_file = get_log(
-        message["host"],
-        message["username"],
-        message["password"],
-        message["name"],
-    )
-
-    if log_file != "":
-        current = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        log_collection.insert_one(
-            {"router_ip": message["host"], "timestamp": current, "log": log_file}
+        log_file = get_log(
+            message["host"],
+            message["username"],
+            message["password"],
+            message["name"],
         )
+
+        if log_file != "":
+            current = datetime.datetime.now(datetime.timezone.utc).isoformat()
+            log_collection.insert_one(
+                {"router_ip": message["host"], "timestamp": current, "log": log_file}
+            )
+    except Exception as e:
+        print(f" [!] Error processing log message: {e}")
 
 
 def worker():
-    try:
-        connection = pika.BlockingConnection(
-            pika.ConnectionParameters(
-                host=rabbit_config["host"],
-                credentials=pika.PlainCredentials(
-                    rabbit_config["username"], rabbit_config["password"]
-                ),
+    for _ in range(10):
+        try:
+            connection = pika.BlockingConnection(
+                pika.ConnectionParameters(
+                    host=rabbit_config["host"],
+                    credentials=pika.PlainCredentials(
+                        rabbit_config["username"], rabbit_config["password"]
+                    ),
+                )
             )
-        )
+        except pika.exceptions.AMQPConnectionError:
+            print("RabbitMQ not ready, retrying...")
+            time.sleep(3)
+
+    try:
         channel = connection.channel()
 
         channel.queue_declare(queue="interface_queue", durable=True)

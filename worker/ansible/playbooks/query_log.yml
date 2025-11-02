@@ -1,0 +1,27 @@
+- name: Copy Running Config from Router
+  hosts: router
+  connection: network_cli
+  gather_facts: true
+  vars:
+    ansible_host: "{{ router_ip }}"
+    ansible_user: "{{ router_user }}"
+    ansible_password: "{{ router_pass }}"
+    file_name: "{{ file_name }}"
+
+  tasks:
+    - name: Get Router Log
+      cisco.ios.ios_command:
+        commands:
+          - show logging | begin Log Buffer
+      register: log
+
+    - name: Save Log to File
+      copy:
+        content: "{{ log.stdout }}"
+        dest: "../../router_logs/{{ file_name }}"
+      delegate_to: localhost
+    
+    - name: Clear Router Log
+      cisco.ios.ios_command:
+        commands:
+          - clear logging

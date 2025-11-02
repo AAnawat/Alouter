@@ -1,7 +1,7 @@
 - name: Copy Running Config from Router
   hosts: router
   connection: network_cli
-  gather_facts: true
+  gather_facts: false
   vars:
     ansible_host: "{{ router_ip }}"
     ansible_user: "{{ router_user }}"
@@ -17,11 +17,16 @@
 
     - name: Save Log to File
       copy:
-        content: "{{ log.stdout }}"
+        content: "{{ log.stdout[0] }}"
         dest: "../../router_logs/{{ file_name }}"
       delegate_to: localhost
     
     - name: Clear Router Log
-      cisco.ios.ios_command:
-        commands:
-          - clear logging
+      ansible.netcommon.cli_command:
+        command: clear logging
+        prompt: '\[confirm\]'
+        answer: ''
+    
+    - name: Display router hostname
+      ansible.builtin.debug:
+        msg: "{{ file_name }}"

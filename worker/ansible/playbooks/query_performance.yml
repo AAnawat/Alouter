@@ -22,8 +22,8 @@
     
     - name: Display CPU Performance
       debug:
-        msg: "{{ cpu_performance.stdout }}"
+        msg: "{{ cpu_performance.stdout[0] }}"
 
     - name: Display Memory Performance
       debug:
-        msg: "{{ memory_performance.stdout }}"
+        msg: "{{ memory_performance.stdout[0] }}"

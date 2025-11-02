@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    margin: 50px 90px;
+    background-color: #6d6d6d;
+}
+
+.main {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 90vh;
+}
+
+.flex {
+    display: flex;
+}
+
+.header {
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    padding-bottom: 5px;
+    border-bottom: 2px solid black;
+}
+
+.create-button {
+    background-color: #000000; /* Green */
+    border: none;
+    color: white;
+    padding: 7px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: auto;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.create-button:hover {
+    background-color: #000000cc;
+}
+
+@media (max-width: 768px) {
+  body {
+    margin: 0;
+  }
+
+  .main {
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+.pop-up-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+/* ============================== */
+/* Form Styling                   */
+/* ============================== */
+
+#router-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#router-form h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+#router-form label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+}
+
+#router-form input[type="text"],
+#router-form input[type="password"] {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+#router-form input[type="text"]:focus,
+#router-form input[type="password"]:focus {
+  border-color: #000;
+  outline: none;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  flex: 1;
+  padding: 8px 0;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.form-buttons button[type="submit"] {
+  background-color: #000;
+  color: white;
+}
+
+.form-buttons button[type="submit"]:hover {
+  background-color: #000000cc;
+}
+
+#cancel-button {
+  background-color: #ccc;
+  color: #333;
+}
+
+#cancel-button:hover {
+  background-color: #bbb;
+}
+
+/* Add a simple animation when popup appears */
+.pop-up-container {
+  animation: fadeIn 0.25s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pop-up-container.active {
+  display: flex;
+  animation: fadeIn 0.25s ease-in;
+}

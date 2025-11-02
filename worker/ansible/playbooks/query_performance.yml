@@ -1,0 +1,29 @@
+- name: Copy Running Config from Router
+  hosts: router
+  connection: network_cli
+  gather_facts: true
+  vars:
+    ansible_host: "{{ router_ip }}"
+    ansible_user: "{{ router_user }}"
+    ansible_password: "{{ router_pass }}"
+
+  tasks:
+    - name: Get Router CPU Performance
+      cisco.ios.ios_command:
+        commands:
+          - show processes cpu | include CPU utilization
+      register: cpu_performance
+
+    - name: Get Router Memory Performance
+      cisco.ios.ios_command:
+        commands:
+          - show processes memory | include Pool Total
+      register: memory_performance
+    
+    - name: Display CPU Performance
+      debug:
+        msg: "{{ cpu_performance.stdout[0] }}"
+
+    - name: Display Memory Performance
+      debug:
+        msg: "{{ memory_performance.stdout[0] }}"

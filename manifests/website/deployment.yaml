@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website
+  labels:
+    app: website
+  namespace: alouter-app
+spec:
+  selector:
+    matchLabels:
+      app: website
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      containers:
+      - name: alouter-website
+        image: aunanawat/alouter-website:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: router-logs
+          mountPath: /app/assets/router_logs
+      volumes:
+      - name: router-logs
+        persistentVolumeClaim:
+          claimName: nfs-pvc

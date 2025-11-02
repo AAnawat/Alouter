@@ -5,6 +5,7 @@ import os
 
 from pprint import pprint
 
+
 def run_ansible_playbook(playbook, router_info):
     extra_vars = (
         f"router_ip={router_info['host']} "
@@ -42,9 +43,9 @@ def get_log(host, username, password, router_name):
         log_content = file.read().splitlines()
         if len(log_content) == 3:
             os.remove(f"./router_logs/{filename[0]}")
-            return "No logs found on the router."
+            return ""
 
-    return filename
+    return filename[0]
 
 
 def get_interface(host, username, password, router_name):
@@ -101,10 +102,10 @@ def get_performance(host, username, password, router_name):
         )
         if mem_percent:
             mem[mem_percent.group(1)] = {
-                    "total": mem_percent.group(2),
-                    "used": mem_percent.group(3),
-                    "free": mem_percent.group(4),
-                }
+                "total": mem_percent.group(2),
+                "used": mem_percent.group(3),
+                "free": mem_percent.group(4),
+            }
 
     performance = {"cpu": cpu, "memory": mem}
     return performance

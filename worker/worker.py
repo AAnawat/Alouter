@@ -1,5 +1,4 @@
 import pika
-import os
 import datetime
 
 from config.rabbitConfig import config as rabbit_config

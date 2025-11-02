@@ -45,12 +45,7 @@ def handle_performance(ch, method, properties, body):
 
 
 def handle_log(ch, method, properties, body):
-    message = {
-        "host": "10.2.17.21",
-        "username": "admin",
-        "password": "cisco",
-        "name": "Router1",
-    }
+    message = json_util.loads(body)
 
     log_file = get_log(
         message["host"],

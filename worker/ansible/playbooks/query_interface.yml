@@ -16,4 +16,4 @@
     
     - name: Display Interface Information
       debug:
-        msg: "{{ interface.stdout }}"
+        msg: "{{ interface.stdout[0] }}"

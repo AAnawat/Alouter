@@ -94,6 +94,7 @@ services:
       - alouter-network
     depends_on:
       - rabbitmq
+      - scheduler
       - mongo
 
 volumes:

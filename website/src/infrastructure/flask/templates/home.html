@@ -39,8 +39,20 @@
             <h1>Alouter</h1>
             <button class="create-button">create</button>
         </div>
-        <div class="router-container">
             
+        <div class="router-container">
+            {% if routers %}
+                {% for router in routers %}
+                    <a href="{{ url_for('getRouterByHost', ip=router.host) }}" class="router-item">
+                        <div>
+                            <h3>{{ router.name }}</h3>
+                            <p>Host: {{ router.host }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>No routers found. Add one using the 'create' button.</p>
+            {% endif %}
         </div>
     </div>
 </body>

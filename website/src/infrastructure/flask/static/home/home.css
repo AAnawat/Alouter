@@ -1,90 +1,189 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
-}
-
 body {
-    margin: 50px 90px;
-    background-color: #6d6d6d;
-}
-
-.main {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-height: 90vh;
-}
-
-.flex {
-    display: flex;
+  font-family: "Poppins", sans-serif;
+  background-color: #0e1a25;
+  color: #f5f6fa;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .header {
-    padding-left: 10px;
-    padding-right: 10px;
-    align-items: center;
-    padding-bottom: 5px;
-    border-bottom: 2px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #142433;
+  padding: 20px 40px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #00aaff;
+  margin: 0;
 }
 
 .create-button {
-    background-color: #000000; /* Green */
-    border: none;
-    color: white;
-    padding: 7px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-left: auto;
-    cursor: pointer;
-    border-radius: 5px;
+  background-color: #00aaff;
+  color: #0e1a25;
+  font-weight: 600;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .create-button:hover {
-    background-color: #000000cc;
+  background-color: #00ffd5;
+  transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
-  body {
-    margin: 0;
-  }
+.main {
+  padding: 30px 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-  .main {
-    border-radius: 0;
-    min-height: 100vh;
-  }
+.router-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.router-item {
+  background-color: #1c3144;
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  color: #e0e0e0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.router-item:hover {
+  background-color: #223f56;
+  transform: translateY(-3px);
+}
+
+.router-item h3 {
+  color: #00aaff;
+  margin-bottom: 8px;
+}
+
+.router-item p {
+  color: #b0bec5;
+  margin: 0;
 }
 
 .pop-up-container {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  backdrop-filter: blur(10px);
+  inset: 0;
+  background: rgba(10, 20, 30, 0.8);
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
 #box {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+  background-color: #142433;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 320px;
+  animation: fadeIn 0.3s ease;
 }
 
-/* ============================== */
-/* Form Styling                   */
-/* ============================== */
+#box h2 {
+  color: #00aaff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  background-color: #1c3144;
+  border: 1px solid #2c4d63;
+  border-radius: 8px;
+  color: #f5f6fa;
+  font-size: 0.9rem;
+  transition: border 0.2s ease;
+}
+
+input:focus {
+  border-color: #00aaff;
+  outline: none;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button[type="submit"],
+#cancel-button {
+  flex: 1;
+  margin: 0 5px;
+  background-color: #00aaff;
+  color: #0e1a25;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#cancel-button {
+  background-color: #b71c1c;
+  color: #fff;
+}
+
+button[type="submit"]:hover {
+  background-color: #00ffd5;
+}
+
+#cancel-button:hover {
+  background-color: #d32f2f;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  #box {
+    width: 90%;
+  }
+}
 
 #router-form {
   display: flex;
@@ -95,14 +194,14 @@ body {
   text-align: center;
   margin-bottom: 15px;
   font-weight: 600;
-  color: #333;
+  color: #ffffff;
 }
 
 #router-form label {
   margin-top: 10px;
   margin-bottom: 5px;
   font-size: 14px;
-  color: #222;
+  color: #ffffff;
   font-weight: 500;
 }
 
@@ -140,12 +239,12 @@ body {
 }
 
 .form-buttons button[type="submit"] {
-  background-color: #000;
+  background-color: #00aaff;
   color: white;
 }
 
 .form-buttons button[type="submit"]:hover {
-  background-color: #000000cc;
+  background-color: #00ffd5;
 }
 
 #cancel-button {
@@ -154,7 +253,7 @@ body {
 }
 
 #cancel-button:hover {
-  background-color: #bbb;
+  background-color: #ff6c4f;
 }
 
 /* Add a simple animation when popup appears */

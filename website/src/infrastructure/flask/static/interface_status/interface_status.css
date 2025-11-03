@@ -1,0 +1,107 @@
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    margin: 0;
+    padding: 40px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.card {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 14px;
+    max-width: 1100px;
+    width: 100%;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+}
+
+.top .title {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #38bdf8;
+}
+
+.top .sub {
+    font-size: 1em;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.data-section {
+    margin-top: 25px;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.if-card {
+    background-color: #0f172a;
+    border-radius: 10px;
+    padding: 15px 18px;
+    border: 1px solid #334155;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.if-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(56,189,248,0.3);
+}
+
+.if-card h3 {
+    color: #38bdf8;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+.if-card p {
+    font-size: 0.95em;
+    margin: 4px 0;
+    color: #e2e8f0;
+}
+
+.status {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.status2 {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.meta {
+    text-align: right;
+    color: #94a3b8;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+.no-data {
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    padding: 40px 0;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    text-decoration: none;
+    color: #38bdf8;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #0ea5e9;
+}

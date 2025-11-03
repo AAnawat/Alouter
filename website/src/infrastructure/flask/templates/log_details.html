@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/pictures/router.ico">
+    <title>Alouter Router</title>
+    <link
+      rel="stylesheet"
+      href="/static/log_details/log_details.css"
+    />
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="log-card">
+        <h2 class="log-title">{{ log_data.name }}</h2>
+
+        <div class="log-box">
+          {% if log_data.data %}
+          {% for line in log_data.data %}
+          <p class="log-line">{{ line }}</p>
+          {% endfor %}
+          {% else %}
+          <p class="no-data">No log entries found.</p>
+          {% endif %}
+        </div>
+
+        <a
+          href="{{ url_for('homePage') }}"
+          class="back-link"
+          title="Back to Home Page"
+          >← Back to Home</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

@@ -12,4 +12,6 @@ class GetAllRouter:
             },
             getResult,
         )
+        if not output:
+            raise Exception("Don't have Routers")
         return output

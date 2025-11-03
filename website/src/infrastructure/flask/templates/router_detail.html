@@ -12,6 +12,8 @@
         <div class="router-card">
             <h1 class="router-name">{{ router.name }}</h1>
             <p class="router-ip">Host: <span>{{ router.host }}</span></p>
+            <p class="router-ip">username: <span>{{ router.username }}</span></p>
+            <p class="router-ip">password: <span>{{ router.password }}</span></p>
 
             <div class="router-menu">
                 <a href="{{ url_for('getInterface_status', ip=router.host) }}" class="menu-item">

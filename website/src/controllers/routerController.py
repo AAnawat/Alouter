@@ -4,6 +4,8 @@ from ..use_cases.getRouterByHost import GetRouterByHost
 from ..use_cases.getInterfaceData import GetInterfaceData
 from ..use_cases.getPerformanceData import GetPerformanceData
 from ..use_cases.getLogsData import GetLogsData
+from ..use_cases.getLogsDetails import GetLogsDetails
+
 
 class RouterController:
     def __init__(self, dbConnector):
@@ -13,7 +15,7 @@ class RouterController:
         self.getInterfaceUseCase = GetInterfaceData(dbConnector["interface"])
         self.getPerformanceUseCase = GetPerformanceData(dbConnector["performance"])
         self.getLogsUseCase = GetLogsData(dbConnector["log"])
-
+        self.getLogDetailsUseCase = GetLogsDetails()
 
     def addRouter(self, name, host, username, password):
         try:
@@ -33,10 +35,10 @@ class RouterController:
         try:
             router = self.getRouterByHostUseCase(ip)
             return router
-        
+
         except Exception as e:
             raise e
-    
+
     def getInterface_status(self, ip):
         try:
             interface_data = self.getInterfaceUseCase(ip)
@@ -49,7 +51,7 @@ class RouterController:
         try:
             performance_data = self.getPerformanceUseCase(ip)
             return performance_data
-        
+
         except Exception as e:
             raise e
 
@@ -57,6 +59,13 @@ class RouterController:
         try:
             log_data = self.getLogsUseCase(ip)
             return log_data
-        
+
+        except Exception as e:
+            raise e
+
+    def getLogDetails(self, log_id):
+        try:
+            log_details = self.getLogDetailsUseCase(log_id)
+            return log_details
         except Exception as e:
             raise e

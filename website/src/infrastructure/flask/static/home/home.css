@@ -68,7 +68,8 @@ body {
 
 .router-item h3 {
   color: #00aaff;
-  margin-bottom: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 .router-item p {
@@ -110,6 +111,7 @@ label {
 
 input[type="text"],
 input[type="password"] {
+  box-sizing: border-box;
   width: 100%;
   padding: 10px;
   margin-top: 6px;

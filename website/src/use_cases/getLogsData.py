@@ -3,8 +3,10 @@ class GetLogsData:
         self.connection = dbConnector
 
     def __call__(self, router_ip):
-        data = self.connection.find_one(
+        data = self.connection.find(
             {"router_ip": router_ip},
-            sort=[("timestamp", -1)]
         )
+
+        data = list(data)
+
         return data

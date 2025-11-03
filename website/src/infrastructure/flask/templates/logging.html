@@ -10,29 +10,22 @@
     <body>
         <div class="data-section">
             <h2>Log Files</h2>
-            {% if log_data and log_data.logs %}
+            {% if log_data %}
                 <div class="data-grid">
-                {% for log in log_data.logs %}
-                    <div class="log-item">
-                        <span class="timestamp">{{ log.timestamp }}:</span>
-                        <p><strong>{{ log.log }}</strong></p>
-                    </div>
-                {% endfor %}
+                    {% for log in log_data %}
+                    <a href="{{ url_for('getLogDetails', ip=log.router_ip, log_id=log.log) }}" class="log-card">
+                        <div class="log-item">
+                            <span class="timestamp">{{ log.timestamp }}:</span>
+                            <p><strong>{{ log.log }}</strong></p>
+                        </div>
+                    </a>
+                    {% endfor %}
                 </div>
-                <p class="timestamp"><small>Last updated: {{ log_data.timestamp|fmt_ts }}</small></p>
             {% else %}
                 <p class="no-data">No log files found for this router.</p>
             {% endif %}
 
-            {% if log_data %}
-            <div>
-                <a href="{{ url_for('getRouterByHost', ip=log_data.router_ip) }}" class="back-link">← Back to Router</a>
-                <br>
-                <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
-            </div>
-            {% else %}
-                <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
-            {% endif %}
+            <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
         </div>
     </body>
 </html>

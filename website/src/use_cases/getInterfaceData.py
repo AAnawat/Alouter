@@ -4,7 +4,6 @@ class GetInterfaceData:
 
     def __call__(self, router_ip):
         data = self.connection.find_one(
-            {"router_ip": router_ip},
-            sort=[("timestamp", -1)]
+            {"router_ip": router_ip}, sort=[("timestamp", -1)]
         )
         return data

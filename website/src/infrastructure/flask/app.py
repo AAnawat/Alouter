@@ -3,6 +3,7 @@ from ...controllers.routerController import RouterController
 from ..mongoDB.client import router_db
 import math
 from datetime import datetime
+
 app = Flask(
     __name__,
     static_url_path="/static",
@@ -95,33 +96,53 @@ def getLogging(ip):
         app.logger.error(f"Error getting logs data for {ip}: {e}")
         return render_template("logging.html", log_data=None)
 
+
+@app.route("/router/<ip>/<log_id>")
+def getLogDetails(ip, log_id):
+    log_id = request.view_args["log_id"]
+
+    try:
+        log_details = routerController.getLogDetails(log_id)
+        if not log_details:
+            return render_template("log_details.html", log_data=None)
+        return render_template(
+            "log_details.html", log_data={"name": log_id, "data": log_details}
+        )
+    except Exception as e:
+        app.logger.error(f"Error getting log details for {ip} log {log_id}: {e}")
+        return render_template("log_details.html", log_data=None)
+
+
 def bytes_to_human(num):
     if num is None:
-        return 'N/A'
+        return "N/A"
     num = float(num)
-    for unit in ['B','KB','MB','GB','TB']:
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
         if num < 1024.0:
             return f"{num:.2f} {unit}"
         num /= 1024.0
     return f"{num:.2f} PB"
+
 
 def percent_used(used, total):
     try:
         used = float(used)
         total = float(total)
         if total == 0:
-            return 'N/A'
+            return "N/A"
         return f"{(used/total*100):.1f}%"
     except Exception:
-        return 'N/A'
+        return "N/A"
+
 
 # ลงทะเบียนเป็น Jinja filter
-app.jinja_env.filters['bytes_human'] = bytes_to_human
-app.jinja_env.filters['percent_used'] = percent_used
+app.jinja_env.filters["bytes_human"] = bytes_to_human
+app.jinja_env.filters["percent_used"] = percent_used
+
 
 def format_ts(ts):
     if not ts:
-        return 'N/A'
+        return "N/A"
     if isinstance(ts, str):
         try:
             dt = datetime.fromisoformat(ts)
@@ -130,4 +151,6 @@ def format_ts(ts):
     else:
         dt = ts
     return dt.strftime("%-d %b %Y %H:%M")
-app.jinja_env.filters['fmt_ts'] = format_ts
+
+
+app.jinja_env.filters["fmt_ts"] = format_ts

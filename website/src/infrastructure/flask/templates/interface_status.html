@@ -52,10 +52,6 @@
                 </div>
                 
                 <div>
-                    {% if interface_data and interface_data.router_ip %}
-                        <a href="{{ url_for('getRouterByHost', ip=interface_data.router_ip) }}" class="back-link">← Back to Router</a>
-                        <br>
-                    {% endif %}
                     <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
                 </div>
             </div>

@@ -7,5 +7,5 @@ class AddRouter:
             {"name": name, "host": host, "username": username, "password": password}
         )
         if not insertResult:
-            raise Exception(f"Can't create Router")
+            raise Exception("Can't create Router")
         return insertResult

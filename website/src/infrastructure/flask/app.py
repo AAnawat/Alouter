@@ -1,7 +1,6 @@
 from flask import Flask, redirect, render_template, request
 from ...controllers.routerController import RouterController
 from ..mongoDB.client import router_db
-import math
 from datetime import datetime
 
 app = Flask(

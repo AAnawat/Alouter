@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="/static/pictures/router.ico">
+        <title>Alouter Router</title>
+        <link rel="stylesheet" href="/static/interface_status/interface_status.css">
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="card">
+                <div class="top">
+                    <div>
+                        <div class="title">Interfaces</div>
+                        <div class="sub">รายการพอร์ตของเราเตอร์</div>
+                    </div>
+                </div>
+
+                <div class="data-section">
+                    {% if interface_data and interface_data.interfaces %}
+                        {% set no_up = true %}
+                        <div class="data-grid">
+                            {% for iface in interface_data.interfaces %}
+                                {% if iface.status == 'up' and iface.protocol == 'up' %}
+                                    {% set no_up = false %}
+                                    <div class="if-card">
+                                        <h3>{{ iface.interface or '—' }}</h3>
+                                        <p><strong>IP Address:</strong> {{ iface.ip_address or 'N/A' }}</p>
+                                        <p><strong>Method:</strong> {{ iface.method or 'N/A' }}</p>
+                                        <p><strong>Status:</strong> <span class="status">{{ iface.status }}</span></p>
+                                        <p><strong>Protocol:</strong> <span class="status">{{ iface.protocol }}</span></p>
+                                    </div>
+                                {% else %}
+                                    <div class="if-card">
+                                        <h3>{{ iface.interface or '—' }}</h3>
+                                        <p><strong>IP Address:</strong> {{ iface.ip_address or 'N/A' }}</p>
+                                        <p><strong>Method:</strong> {{ iface.method or 'N/A' }}</p>
+                                        <p><strong>Status:</strong> <span class="status2">{{ iface.status }}</span></p>
+                                        <p><strong>Protocol:</strong> <span class="status2">{{ iface.protocol }}</span></p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class="meta">
+                            <p class="timestamp"><small>Last updated: {{ interface_data.timestamp|fmt_ts }}</small></p>
+                        </div>
+                    {% else %}
+                        <div class="no-data">No interface data available for this router yet.</div>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
+                </div>
+            </div>
+        </div>  
+    </body>
+</html>

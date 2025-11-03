@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/static/pictures/router.ico"
+    />
+    <title>Alouter Router</title>
+    <link
+      rel="stylesheet"
+      href="/static/performance/performance.css"
+    />
+  </head>
+  <body>
+    <div class="data-section">
+      <h2>Performance Data</h2>
+
+      {% if performance_data and performance_data.performance %}
+      {% set perf = performance_data.performance %}
+
+      <div class="data-grid">
+        <!-- CPU Group -->
+        {% if perf.cpu %}
+        <div class="perf-group">
+          <h3 class="group-title">CPU</h3>
+          <div class="perf-card">
+            <p><strong>Total:</strong> {{ perf.cpu.total or 'N/A' }}</p>
+            <p><strong>Interrupt:</strong> {{ perf.cpu.interrupt or 'N/A' }}</p>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Memory Group -->
+        {% if perf.memory %}
+        <div class="perf-group">
+          <h3 class="group-title">Memory</h3>
+
+          {% if perf.memory.Processor %}
+          {% set mem = perf.memory.Processor %}
+          <div class="perf-card">
+            <h4>Processor</h4>
+            <p><strong>Total:</strong> {{ mem.total|bytes_human }}</p>
+            <p>
+              <strong>Used:</strong> {{ mem.used|bytes_human }}
+              ({{ mem.used|percent_used(mem.total) }})
+            </p>
+            <p><strong>Free:</strong> {{ mem.free|bytes_human }}</p>
+          </div>
+          {% endif %}
+
+          {% if perf.memory.lsmpi_io %}
+          {% set lsmpi = perf.memory.lsmpi_io %}
+          <div class="perf-card">
+            <h4>lsmpi_io</h4>
+            <p><strong>Total:</strong> {{ lsmpi.total|bytes_human }}</p>
+            <p>
+              <strong>Used:</strong> {{ lsmpi.used|bytes_human }}
+              ({{ lsmpi.used|percent_used(lsmpi.total) }})
+            </p>
+            <p><strong>Free:</strong> {{ lsmpi.free|bytes_human }}</p>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+
+      <p class="timestamp">
+        <small
+          >Last updated: {{ performance_data.timestamp|fmt_ts }}</small
+        >
+      </p>
+
+      {% else %}
+      <p class="no-data">No performance data available for this router yet.</p>
+      {% endif %}
+
+      <a href="{{ url_for('homePage') }}" class="back-link"
+        >← Back to Home</a
+      >
+    </div>
+  </body>
+</html>

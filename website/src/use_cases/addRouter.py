@@ -6,5 +6,6 @@ class AddRouter:
         insertResult = self.connection.insert_one(
             {"name": name, "host": host, "username": username, "password": password}
         )
-
+        if not insertResult:
+            raise Exception("Can't create Router")
         return insertResult

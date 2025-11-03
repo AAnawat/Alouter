@@ -141,6 +141,7 @@ celerybeat.pid
 env/
 venv/
 .worker/
+.scheduler/
 environment/
 ENV/
 env.bak/

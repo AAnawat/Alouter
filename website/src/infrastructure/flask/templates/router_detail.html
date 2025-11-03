@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ router.name }} - Alouter</title>
+    <link rel="icon" type="image/x-icon" href="/static/pictures/router.ico">
+    <link rel="stylesheet" href="/static/router_detail/router_detail.css">
+</head>
+<body>
+    <div class="container">
+        <div class="router-card">
+            <h1 class="router-name">{{ router.name }}</h1>
+            <p class="router-ip">Host: <span>{{ router.host }}</span></p>
+
+            <div class="router-menu">
+                <a href="{{ url_for('getInterface_status', ip=router.host) }}" class="menu-item">
+                    <h3>Interfaces Status</h3>
+                    <p>View port connections and status</p>
+                </a>
+
+                <a href="{{ url_for('getPerformance', ip=router.host) }}" class="menu-item">
+                    <h3>Performance Data</h3>
+                    <p>Check CPU, memory, and network performance</p>
+                </a>
+
+                <a href="{{ url_for('getLogging', ip=router.host) }}" class="menu-item">
+                    <h3>Logs Data</h3>
+                    <p>Review router system logs</p>
+                </a>
+            </div>
+        </div>
+        {% if router %}
+        <div>
+            <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

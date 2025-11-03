@@ -3,7 +3,6 @@ import time
 
 from config.rabbitConfig import config as rabbit_config
 
-print(rabbit_config)
 
 for _ in range(10):
     try:

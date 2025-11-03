@@ -37,10 +37,10 @@ def get_log(host, username, password, router_name):
         "name": router_name,
     }
     output = run_ansible_playbook("query_log.yml", router_info)
-    
+
     if not ("failed=0" in output):
         raise Exception("Failed to get performance data")
-    
+
     filename = re.findall('"msg": "(.*)"', output)
 
     with open(f"./router_logs/{filename[0]}", "r") as file:
@@ -63,7 +63,7 @@ def get_interface(host, username, password, router_name):
 
     if not ("failed=0" in output):
         raise Exception("Failed to get performance data")
-    
+
     content = re.findall('"msg": "(.*)"', output)[0]
     content = content.split("\\n")[1:]
 
@@ -98,7 +98,7 @@ def get_performance(host, username, password, router_name):
 
     if not ("failed=0" in output):
         raise Exception("Failed to get performance data")
-    
+
     content = re.findall('"msg": "(.*)"', output)
     cpu = content[0]
     memory = content[1].split("\\n")

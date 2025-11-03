@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="/static/pictures/router.ico">
+        <title>Alouter Router</title>
+        <link rel="stylesheet" href="/static/performance/performance.css">
+    </head>
+    <body>
+        <div class="data-section">
+            <h2>Performance Data</h2>
+            {% if performance_data and performance_data.performance %}
+                {% set perf = performance_data.performance %}
+                <div class="data-grid">
+                    <div class="perf-card">
+                        <h3>CPU</h3>
+                        <p><strong>Total:</strong> {{ perf.cpu.total if perf.cpu else 'N/A' }}</p>
+                        <p><strong>Interrupt:</strong> {{ perf.cpu.interrupt if perf.cpu else 'N/A' }}</p>
+                    </div>
+                    
+                    {% if perf.memory and perf.memory.Processor %}
+                        {% set mem = perf.memory.Processor %}
+                        <div class="perf-card">
+                            <h3>Processor</h3>
+                            <p><strong>Total:</strong> {{ mem.total|bytes_human }}</p>
+                            <p><strong>Used:</strong> {{ mem.used|bytes_human }} ({{ mem.used|percent_used(mem.total) }})</p>
+                            <p><strong>Free:</strong> {{ mem.free|bytes_human }}</p>
+                        </div>
+                    {% endif %}
+
+                    {% if perf.memory and perf.memory.lsmpi_io %}
+                        {% set lsmpi = perf.memory.lsmpi_io %}
+                        <div class="perf-card">
+                            <h3>lsmpi_io</h3>
+                            <p><strong>Total:</strong> {{ lsmpi.total|bytes_human }}</p>
+                            <p><strong>Used:</strong> {{ lsmpi.used|bytes_human }} ({{ lsmpi.used|percent_used(lsmpi.total) }})</p>
+                            <p><strong>Free:</strong> {{ lsmpi.free|bytes_human }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+                <p class="timestamp"><small>Last updated: {{ performance_data.timestamp|fmt_ts }}</small></p>
+            {% else %}
+                <p class="no-data">No performance data available for this router yet.</p>
+            {% endif %}
+
+            {% if performance_data %}
+                <div>
+                    <a href="{{ url_for('getRouterByHost', ip=performance_data.router_ip) }}" class="back-link">← Back to Router</a>
+                    <br>
+                    <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
+                </div>
+            {% else %}
+                <a href="{{ url_for('homePage') }}" class="back-link">← Back to Home</a>
+            {% endif %}    
+        </div>
+    </body>
+</html>

@@ -1,0 +1,1 @@
+This directory is for simulate nfs directory for docker compose for developing perpose

@@ -3,11 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="/static/pictures/router.ico">
+    <title>Alouter</title>
 
     <link rel="stylesheet" type="text/css" href="/static/home/home.css">
+    <script type="module" src="/static/home/home.js" defer></script>
 </head>
 <body>
-    <h1>Hello, Flask!</h1>   
+    <div class="pop-up-container">
+        <div id="box">
+            <form id="router-form" method="post" action="{{ url_for('addRouter') }}">
+                <h2>Add Router</h2>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="host">Host:</label>
+                <input type="text" id="host" name="host" required>
+                
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <div class="form-buttons">
+                    <button type="submit">Add</button>
+                    <button type="button" id="cancel-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="flex header">
+            <h1>Alouter</h1>
+            <button class="create-button">create</button>
+        </div>
+            
+        <div class="router-container">
+            {% if routers %}
+                {% for router in routers %}
+                    <a href="{{ url_for('getRouterByHost', ip=router.host) }}" class="router-item">
+                        <div>
+                            <h3>{{ router.name }}</h3>
+                            <p>Host: {{ router.host }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>No routers found. Add one using the 'create' button.</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
